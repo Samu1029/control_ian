@@ -1,0 +1,32 @@
+<div class="chart">
+  <mat-card>
+    <mat-card-header>
+      <!--<img src="assets/img/logo2.png" width="80" height="70" alt="music" />-->
+    </mat-card-header>
+    <br />
+    <mat-card-content>
+      <mat-card-title>
+        <h1>Datos Estadísticos de Ian</h1>
+      </mat-card-title>
+      <mat-divider></mat-divider>
+      <br />
+      <div class="wrapper">
+        <ngx-charts-line-chart
+          [scheme]="colorScheme"
+          [legend]="legend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxis]="true"
+          [yAxis]="true"
+          [autoScale]="true"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          [results]="multi"
+          style="fill: #d1d1d1"
+          [timeline]="true"
+        >
+        </ngx-charts-line-chart>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
