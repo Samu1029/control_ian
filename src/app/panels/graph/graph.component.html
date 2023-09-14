@@ -6,58 +6,60 @@
     </li>
   </ul>
 </section>
-<mat-grid-list class="wrapper-main" cols="12" rowHeight="100px">
-  <mat-grid-tile class="wrapper-ul" colspan="4" rowspan="6">
-    <table mat-table class="mat-elevation-z8 demo-table">
-      <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <th mat-header-cell>No.</th>
-        <td mat-cell ></td>
-      </ng-container>
-    
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell>Name</th>
-        <td mat-cell></td>
-      </ng-container>
-    
-      <!-- Weight Column -->
-      <ng-container matColumnDef="weight">
-        <th mat-header-cell>Weight</th>
-        <td mat-cell ></td>
-      </ng-container>
-    
-      <tr mat-header-row ></tr>
-      <tr
-          mat-row
-      ></tr>
-    </table>
-    <!--<ul>
-      <li>
-          <div class="inside-list">
-              <div class="text-muted">Precio</div>
-              <div class="text-muted">Cantidad(BTC)</div>
-              <div class="text-muted">Total</div>
-          </div>
-      </li>
-      <li *ngFor="let a of multi">
-          <div class="inside-list">
-              <div class="text-danger">{{a.series[0].value}}</div>
-              <div class="text-white">0,455445</div>
-              <div class="text-white">{{a.series[1].name}}</div>
-          </div>
-      </li>
-    </ul>-->
-  </mat-grid-tile>
+<section class="body">
+  <mat-grid-list class="wrapper-main" cols="12" rowHeight="100px">
+    <mat-grid-tile class="wrapper-ul" colspan="1" rowspan="5">
+    </mat-grid-tile>
+    <mat-grid-tile class="wrapper-ul" colspan="3" rowspan="5">
+      <table class="table">
+        <thead>
+        <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Crisis</th>
+        <th>Observación</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Usa la directiva *ngFor para iterar sobre el arreglo de datos -->
+        <tr *ngFor="let dato of datos">
+        <!-- Usa la interpolación {{ }} para mostrar el valor de cada dato -->
+        <td>{{ dato.id }}</td>
+        <td>{{ dato.user }}</td>
+        <td>{{ dato.crisis }}</td>
+        <td>{{ dato.observation }}</td>
+        </tr>
+        </tbody>
+      </table>
+      <!--<ul>
+        <li>
+            <div class="inside-list">
+                <div class="text-muted">Precio</div>
+                <div class="text-muted">Cantidad(BTC)</div>
+                <div class="text-muted">Total</div>
+            </div>
+        </li>
+        <li *ngFor="let a of multi">
+            <div class="inside-list">
+                <div class="text-danger">{{a.series[0].value}}</div>
+                <div class="text-white">0,455445</div>
+                <div class="text-white">{{a.series[1].name}}</div>
+            </div>
+        </li>
+      </ul>-->
+    </mat-grid-tile>
+    <mat-grid-tile class="wrapper-ul" colspan="1" rowspan="5">
+    </mat-grid-tile>  
+    <mat-grid-tile class="wrapper" colspan="7" rowspan="5">
+      <div class="chart">
+        <ngx-charts-line-chart [scheme]="colorScheme" [legend]="legend" [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel" [xAxis]="true" [yAxis]="true" [autoScale]="true" [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel" [results]="multi" style="fill: #d1d1d1" [timeline]="true">
+      </ngx-charts-line-chart>
+      </div>
+    </mat-grid-tile>
+  
+  </mat-grid-list >
+</section>
 
-  <mat-grid-tile class="wrapper" colspan="8" rowspan="6">
-    <div class="chart">
-      <ngx-charts-line-chart [scheme]="colorScheme" [legend]="legend" [showXAxisLabel]="showXAxisLabel"
-      [showYAxisLabel]="showYAxisLabel" [xAxis]="true" [yAxis]="true" [autoScale]="true" [xAxisLabel]="xAxisLabel"
-      [yAxisLabel]="yAxisLabel" [results]="multi" style="fill: #d1d1d1" [timeline]="true">
-    </ngx-charts-line-chart>
-    </div>
-  </mat-grid-tile>
-
-</mat-grid-list >
 

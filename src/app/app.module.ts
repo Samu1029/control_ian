@@ -5,19 +5,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GraphComponent } from './panels/graph/graph.component';
 import { AppMaterialModule } from './app-material.module';
-import { MedicControlComponent } from './panels/medic-control/medic-control.component';
+import { MedicControlComponent } from './panels/medic_control/medic-control.component';
+import { CrisisControlComponent } from './panels/crisis_control/crisis-control.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { GraphRoutingModule } from './panels/graph/graph-routing.module';
+import { HeaderModule } from './shared/header/header.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     GraphComponent,
     MedicControlComponent,
+    CrisisControlComponent,
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
@@ -29,6 +33,8 @@ import { GraphRoutingModule } from './panels/graph/graph-routing.module';
     AppMaterialModule,
     GraphRoutingModule,
     NgxChartsModule,
+    HeaderModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

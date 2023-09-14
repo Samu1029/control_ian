@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppMaterialModule } from 'src/app/app-material.module';
-import { GraphRoutingModule } from './graph-routing.module';
+
 
 
 @NgModule({
-  declarations: [ ],
+  declarations: [],
   imports: [
     CommonModule,
-    AppMaterialModule,
-    GraphRoutingModule,
+    AppMaterialModule
   ]
 })
-export class GraphModule { }
+export class HeaderModule { }
