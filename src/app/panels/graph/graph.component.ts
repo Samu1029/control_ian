@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CrisisControlService } from 'src/app/services/service_crisis_control/crisis-control.service';
 import * as moment from 'moment';
+import { count } from 'd3';
 
 @Component({
   selector: 'app-graph',
@@ -14,17 +15,38 @@ export class GraphComponent implements OnInit{
 
   // Propiedad para almacenar las crisis del usuario
   datos: any[] = [];
-  multi: any[] = [];
+  multi: any[];
+
+   // options
+   legend: boolean = false;
+   showLabels: boolean = true;
+   animations: boolean = true;
+   xAxis: boolean = true;
+   yAxis: boolean = true;
+   showYAxisLabel: boolean = false;
+   showXAxisLabel: boolean = false;
+   xAxisLabel: string = 'Year';
+   yAxisLabel: string = 'Population';
+   timeline: boolean = false;
+ 
+   colorScheme = 'vivid';
+   /*colorScheme = {
+     domain: ['#72efdd', '#ffd60a']
+   };*/
   
-  tiempoGraph: { crisis: string, date: string }[] = [];
+  tiempoGraph: { value: Number, name: Date }[] = [];
 
   constructor(private crisisService: CrisisControlService) {
     this.multi =
 
       [
         {
+          "name": "IAN",
           "series": [
-            
+            {
+              "value": Number,
+              "name": Date
+            },     
           ]
         }
       ]
@@ -33,44 +55,50 @@ export class GraphComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    // Método obtenerCrisisControl del servicio para obtener los datos de la API
+    // Método obtenerCrisisControl del ser  vicio para obtener los datos de la API
     this.crisisService.obtenerCrisisControl().subscribe((data) => {
     // Asigna los datos a la propiedad crisisControl
     this.datos = data;
-
+    var cant = 1;
+  
     data.forEach((element: any) => {
       let crisis = element.crisis;
       let date = element.date;
+      let date1 = date;
+      console.log('date => ',date)
+      console.log('cant => ',cant)
+      if (date){
+        cant++;
+      };
       let info = {
-        crisis: crisis,
-        date: date
-      }
+        value: crisis,
+        name: date
+      };
 
       this.tiempoGraph.push(info);
 
     });
 
-    this.multi = this.tiempoGraph;
-    console.log('multi => ', this.tiempoGraph)
+    /*const [IAN] = this.tiempoGraph;
+    const crisisIAN = IAN.value;
+    const [currentIAN] = this.multi;*/
+
+    this.multi[0].series = this.tiempoGraph;
+    this.multi = [...this.multi]
+    console.log('multi => ', this.multi)
 
     });
   }
 
+  parseDate(dataRaw: Array<any>): Array<any> {
+    const result = dataRaw.map(([name, value], index) => { // TODO: 1919199119
+      return {
+        name: moment(name, 'x').toDate(),
+        value
+      }
+    });
 
-  // options
-  legend: boolean = false;
-  animations: boolean = true;
-  xAxis: boolean = true;
-  yAxis: boolean = true;
-  showYAxisLabel: boolean = false;
-  showXAxisLabel: boolean = false;
-  xAxisLabel: string = 'Year';
-  yAxisLabel: string = 'Population';
-  timeline: boolean = true;
-
-  colorScheme = 'vivid';
-  /*colorScheme = {
-    domain: ['#72efdd', '#ffd60a']
-  };*/
+    return result
+  }
 
 }
