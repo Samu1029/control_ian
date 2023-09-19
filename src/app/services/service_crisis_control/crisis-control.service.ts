@@ -17,7 +17,7 @@ export class CrisisControlService {
   // Método para obtener controles de las crisis del usuario
   obtenerCrisisControl(): Observable<any> {
     // Uso del método get del HttpClient y se pasa la url de la API
-    return this.http.get(this.url + '/crisis_control');
+    return this.http.get(this.url + '/crisis_control/IAN');
   }
 
 }
