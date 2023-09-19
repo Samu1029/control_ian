@@ -8,8 +8,8 @@ import { GraphRoutingModule } from './graph-routing.module';
   declarations: [ ],
   imports: [
     CommonModule,
-    AppMaterialModule,
     GraphRoutingModule,
+    AppMaterialModule
   ]
 })
 export class GraphModule { }

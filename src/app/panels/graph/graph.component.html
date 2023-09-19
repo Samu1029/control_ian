@@ -14,22 +14,18 @@
       <table class="table">
         <thead>
         <tr>
-        <th>ID</th>
         <th>Nombre</th>
-        <th>Crisis</th>
+        <th>No. de Crisis</th>
         <th>Fecha</th>
-        <th>Observación</th>
         </tr>
         </thead>
         <tbody>
         <!-- Usa la directiva *ngFor para iterar sobre el arreglo de datos -->
         <tr *ngFor="let dato of datos">
         <!-- Usa la interpolación {{ }} para mostrar el valor de cada dato -->
-        <td>{{ dato.id }}</td>
-        <td>{{ dato.user }}</td>
-        <td>{{ dato.crisis }}</td>
+        <td>IAN</td>
+        <td>{{ dato.total }}</td>
         <td>{{ dato.date }}</td>
-        <td>{{ dato.observation }}</td>
         </tr>
         </tbody>
       </table>
@@ -54,9 +50,9 @@
     </mat-grid-tile>  
     <mat-grid-tile class="wrapper" colspan="7" rowspan="5">
       <div class="chart">
-        <ngx-charts-line-chart [scheme]="colorScheme" [legend]="legend" showLabels="showLabels" [showXAxisLabel]="showXAxisLabel"
+        <ngx-charts-line-chart [scheme]="colorScheme" [legend]="legend" [legendTitle]="legendTitle" showLabels="showLabels" [showXAxisLabel]="showXAxisLabel"
         [showYAxisLabel]="showYAxisLabel" [xAxis]="true" [yAxis]="true" [autoScale]="true" [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel" [results]="multi" style="fill: #d1d1d1" [timeline]="true">
+        [yAxisLabel]="yAxisLabel" [roundDomains]="roundDomains" [autoScale]="autoScale" [results]="multi" style="fill: #d1d1d1" [timeline]="true">
       </ngx-charts-line-chart>
       </div>
     </mat-grid-tile>

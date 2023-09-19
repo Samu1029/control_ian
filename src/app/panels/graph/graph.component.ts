@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CrisisControlService } from 'src/app/services/service_crisis_control/crisis-control.service';
-import * as moment from 'moment';
-import { count } from 'd3';
 
 @Component({
   selector: 'app-graph',
@@ -16,20 +14,25 @@ export class GraphComponent implements OnInit{
   // Propiedad para almacenar las crisis del usuario
   datos: any[] = [];
   multi: any[];
+  num = 0;
 
    // options
-   legend: boolean = false;
+   legend: boolean = true;
+   legendTitle: string = 'User';
+   legendPosition: string = 'right';
    showLabels: boolean = true;
    animations: boolean = true;
    xAxis: boolean = true;
    yAxis: boolean = true;
-   showYAxisLabel: boolean = false;
-   showXAxisLabel: boolean = false;
-   xAxisLabel: string = 'Year';
-   yAxisLabel: string = 'Population';
+   showYAxisLabel: boolean = true;
+   showXAxisLabel: boolean = true;
+   xAxisLabel: string = 'Resumen por día';
+   yAxisLabel: string = 'Cantidad de Crisis';
+   roundDomains: boolean = false;
+   autoScale: boolean = false;
    timeline: boolean = false;
  
-   colorScheme = 'vivid';
+   colorScheme = 'cool';
    /*colorScheme = {
      domain: ['#72efdd', '#ffd60a']
    };*/
@@ -50,24 +53,18 @@ export class GraphComponent implements OnInit{
           ]
         }
       ]
-
-    // Object.assign(this, {
   }
 
   ngOnInit(): void {
-    // Método obtenerCrisisControl del ser  vicio para obtener los datos de la API
+    // Método obtenerCrisisControl del servicio para obtener los datos de la API
     this.crisisService.obtenerCrisisControl().subscribe((data) => {
     // Asigna los datos a la propiedad crisisControl
     this.datos = data;
-    var cant = 1;
   
     data.forEach((element: any) => {
       let crisis = element.total;
       let date = element.date;
-      //let filtrados = data.filter((dato: { date: number; }) => dato.date > date);
-      //let cantidad = filtrados.length;
       console.log('date => ',date)
-      //console.log('cant => ',cantidad)
       let info = {
         value: crisis,
         name: date
@@ -77,26 +74,11 @@ export class GraphComponent implements OnInit{
 
     });
 
-    /*const [IAN] = this.tiempoGraph;
-    const crisisIAN = IAN.value;
-    const [currentIAN] = this.multi;*/
-
     this.multi[0].series = this.tiempoGraph;
     this.multi = [...this.multi]
     console.log('multi => ', this.multi)
 
     });
-  }
-
-  parseDate(dataRaw: Array<any>): Array<any> {
-    const result = dataRaw.map(([name, value], index) => { // TODO: 1919199119
-      return {
-        name: moment(name, 'x').toDate(),
-        value
-      }
-    });
-
-    return result
   }
 
 }
