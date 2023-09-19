@@ -64,9 +64,10 @@ export class GraphComponent implements OnInit{
     data.forEach((element: any) => {
       let crisis = element.crisis;
       let date = element.date;
-      let date1 = date;
+      let filtrados = data.filter((dato: { date: number; }) => dato.date > date);
+      let cantidad = filtrados.length;
       console.log('date => ',date)
-      console.log('cant => ',cant)
+      console.log('cant => ',cantidad)
       if (date){
         cant++;
       };
