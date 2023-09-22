@@ -38,7 +38,8 @@ export class GraphComponent implements OnInit{
    };*/
   
   tiempoGraph: { value: Number, name: Date }[] = [];
-
+  displayedColumns: string[] = ['name', 'crisis', 'date'];
+ 
   constructor(private crisisService: CrisisControlService) {
     this.multi =
 
@@ -79,6 +80,9 @@ export class GraphComponent implements OnInit{
     console.log('multi => ', this.multi)
 
     });
+
+    //dataSource = this.tiempoGraph;
+
   }
 
 }
