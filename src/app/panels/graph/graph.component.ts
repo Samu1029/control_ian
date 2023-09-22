@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
 import { CrisisControlService } from 'src/app/services/service_crisis_control/crisis-control.service';
+import {LiveAnnouncer} from '@angular/cdk/a11y';
+import { Sort, MatSortModule, MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-graph',
@@ -9,12 +12,10 @@ import { CrisisControlService } from 'src/app/services/service_crisis_control/cr
 
 export class GraphComponent implements OnInit{
 
-  //columnsToDisplay: string[] = ['name', 'value'];
-
   // Propiedad para almacenar las crisis del usuario
   datos: any[] = [];
   multi: any[];
-  num = 0;
+  //num = 0;
 
    // options
    legend: boolean = true;
@@ -28,8 +29,8 @@ export class GraphComponent implements OnInit{
    showXAxisLabel: boolean = true;
    xAxisLabel: string = 'Resumen por día';
    yAxisLabel: string = 'Cantidad de Crisis';
-   roundDomains: boolean = false;
-   autoScale: boolean = false;
+   roundDomains: boolean = true;
+   autoScale: boolean = true;
    timeline: boolean = false;
  
    colorScheme = 'cool';
@@ -38,11 +39,11 @@ export class GraphComponent implements OnInit{
    };*/
   
   tiempoGraph: { value: Number, name: Date }[] = [];
+  sortedData: { user: String, crisis: Number, date: Date }[] = [];
   displayedColumns: string[] = ['name', 'crisis', 'date'];
  
   constructor(private crisisService: CrisisControlService) {
     this.multi =
-
       [
         {
           "name": "IAN",
@@ -54,6 +55,7 @@ export class GraphComponent implements OnInit{
           ]
         }
       ]
+      //this.sortedData = this.datos.slice();
   }
 
   ngOnInit(): void {
@@ -76,13 +78,37 @@ export class GraphComponent implements OnInit{
     });
 
     this.multi[0].series = this.tiempoGraph;
-    this.multi = [...this.multi]
+    this.multi = [...this.multi];
     console.log('multi => ', this.multi)
+    console.log('dataSourse => ', this.sortedData)
 
     });
 
-    //dataSource = this.tiempoGraph;
-
   }
 
+  sortData(sort: Sort) {
+    const data = this.datos.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData  = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'name':
+          return compare(a.user, b.user, isAsc);
+        case 'crisis':
+          return compare(a.total, b.total, isAsc);
+        case 'date':
+          return compare(a.date, b.date, isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
+}
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
