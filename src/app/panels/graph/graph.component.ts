@@ -55,7 +55,7 @@ export class GraphComponent implements OnInit{
           ]
         }
       ]
-      //this.sortedData = this.datos.slice();
+      this.sortedData = this.datos.slice();
   }
 
   ngOnInit(): void {
