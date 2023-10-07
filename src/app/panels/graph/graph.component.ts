@@ -3,23 +3,7 @@ import { CrisisControlService } from 'src/app/services/service_crisis_control/cr
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import { Sort, MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-];
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-graph',
@@ -33,8 +17,9 @@ export class GraphComponent implements OnInit, AfterViewInit {
   datos: any[] = [];
   multi: any[];
   
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumns: string[] = ['user', 'date', 'total'];
+  sortedData: { user: string, date: Date, total: number }[] = [];
+  dataSource!:MatTableDataSource<any>;
 
    // options
    legend: boolean = true;
@@ -58,8 +43,6 @@ export class GraphComponent implements OnInit, AfterViewInit {
    };*/
   
   tiempoGraph: { value: Number, name: Date }[] = [];
-  sortedData: { user: String, crisis: Number, date: Date }[] = [];
-  //displayedColumns: string[] = ['name', 'crisis', 'date'];
  
   constructor(private _liveAnnouncer: LiveAnnouncer, private crisisService: CrisisControlService) {
     this.multi =
@@ -73,8 +56,11 @@ export class GraphComponent implements OnInit, AfterViewInit {
             },     
           ]
         }
-      ]
+      ],
       this.sortedData = this.datos.slice();
+      this.dataSource= new MatTableDataSource(this.sortedData);
+      this.dataSource.paginator=this.paginator;
+      this.dataSource.sort = this.sort;
   }
 
   ngOnInit(): void {
@@ -99,34 +85,23 @@ export class GraphComponent implements OnInit, AfterViewInit {
 
     this.multi[0].series = this.tiempoGraph;
     this.multi = [...this.multi];
-    console.log('multi => ', this.multi)
-    console.log('dataSourse => ', this.sortedData)
+    this.sortedData = data;
+    console.log('dataSource => ', this.datos)
+    console.log('sortedData => ', this.sortedData)
 
     });
 
   }
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
-  /** Announce the change in sort state for assistive technology. */
-  announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
-    }
-  }
-
-  /*sortData(sort: Sort) {
-    const data = this.datos.slice();
+  sortData(sort: Sort) {
+    const data = this.sortedData.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
       return;
@@ -135,19 +110,21 @@ export class GraphComponent implements OnInit, AfterViewInit {
     this.sortedData  = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'name':
+        case 'user':
           return compare(a.user, b.user, isAsc);
-        case 'crisis':
-          return compare(a.total, b.total, isAsc);
         case 'date':
           return compare(a.date, b.date, isAsc);
+        case 'total':
+          return compare(a.total, b.total, isAsc);
         default:
           return 0;
       }
     });
-  }*/
+    this.dataSource = new MatTableDataSource(this.sortedData);
+    this.dataSource.paginator=this.paginator;
+  }
 }
 
-/*function compare(a: number | string, b: number | string, isAsc: boolean) {
+function compare(a: number | Date | string, b: number | Date | string, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}*/
+}
