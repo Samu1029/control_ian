@@ -12,7 +12,7 @@
     </mat-grid-tile>
     <mat-grid-tile class="wrapper-ul" colspan="3" rowspan="5">
       <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="sortedData" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
 
           <!-- User Column -->
           <ng-container matColumnDef="user">

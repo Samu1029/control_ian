@@ -14,10 +14,15 @@ export class CrisisControlService {
   constructor(
     private http: HttpClient
   ) {}
-  // Método para obtener controles de las crisis del usuario
+  // Métodos para obtener controles de las crisis del usuario
   obtenerCrisisControl(): Observable<any> {
     // Uso del método get del HttpClient y se pasa la url de la API
     return this.http.get(this.url + '/crisis_control/IAN');
+  }
+
+  getCrisisControl(): Observable<any> {
+    // Uso del método get del HttpClient y se pasa la url de la API
+    return this.http.get(this.url + '/crisis_control');
   }
 
 }

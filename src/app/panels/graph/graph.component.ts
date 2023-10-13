@@ -4,6 +4,7 @@ import {LiveAnnouncer} from '@angular/cdk/a11y';
 import { Sort, MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { DataSource } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-graph',
@@ -13,13 +14,13 @@ import { MatPaginator } from '@angular/material/paginator';
 
 export class GraphComponent implements OnInit, AfterViewInit {
 
-  // Propiedad para almacenar las crisis del usuario
+  //Almacenar las crisis del usuario
   datos: any[] = [];
   multi: any[];
   
   displayedColumns: string[] = ['user', 'date', 'total'];
-  sortedData: { user: string, date: Date, total: number }[] = [];
-  dataSource!:MatTableDataSource<any>;
+  //sortedData: { user: string, date: Date, total: number }[] = [];
+  dataSource!: MatTableDataSource<datos[]>;
 
    // options
    legend: boolean = true;
@@ -56,11 +57,7 @@ export class GraphComponent implements OnInit, AfterViewInit {
             },     
           ]
         }
-      ],
-      this.sortedData = this.datos.slice();
-      this.dataSource= new MatTableDataSource(this.sortedData);
-      this.dataSource.paginator=this.paginator;
-      this.dataSource.sort = this.sort;
+      ]
   }
 
   ngOnInit(): void {
@@ -85,10 +82,10 @@ export class GraphComponent implements OnInit, AfterViewInit {
 
     this.multi[0].series = this.tiempoGraph;
     this.multi = [...this.multi];
-    this.sortedData = data;
-    console.log('dataSource => ', this.datos)
-    console.log('sortedData => ', this.sortedData)
-
+    this.dataSource = new MatTableDataSource<datos[]>(this.datos);
+    this.dataSource.paginator=this.paginator;
+    this.dataSource.sort = this.sort;
+    console.log('dataSource => ', this.dataSource)
     });
 
   }
@@ -100,14 +97,27 @@ export class GraphComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  sortData(sort: Sort) {
-    const data = this.sortedData.slice();
+  /** Announce the change in sort state for assistive technology. */
+  announceSortChange(sortState: Sort) {
+    // This example uses English messages. If your application supports
+    // multiple language, you would internationalize these strings.
+    // Furthermore, you can customize the message to add additional
+    // details about the values being sorted.
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
+  }
+
+  /*sortData(sort: Sort) {
+    const data = this.datos.slice();
     if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
+      this.datos = data;
       return;
     }
 
-    this.sortedData  = data.sort((a, b) => {
+    this.datos  = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'user':
@@ -120,11 +130,17 @@ export class GraphComponent implements OnInit, AfterViewInit {
           return 0;
       }
     });
-    this.dataSource = new MatTableDataSource(this.sortedData);
+    this.dataSource = new MatTableDataSource<datos[]>(this.datos);
     this.dataSource.paginator=this.paginator;
-  }
+  }*/
 }
 
-function compare(a: number | Date | string, b: number | Date | string, isAsc: boolean) {
+/*function compare(a: number | Date | string, b: number | Date | string, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}*/
+
+export interface datos {
+  user: string, 
+  date: Date, 
+  total: number
 }
