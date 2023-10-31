@@ -1,51 +1,11 @@
 @import 'src/styles.scss';
 
-.wrapper-main{
-    display: grid;
-    justify-content: center;
-    align-items: center;
-}
-
-.wrapper{
-    margin: auto;
-    background: $bgSecond;
-
-    .chart{
-        margin: auto;
-        background: $bgSecond;
-        width: 80%;
-    }
-}
-
-.wrapper-ul{
-    ul{
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        li{
-            padding: .175rem 0;
-        
-            .inside-list{
-                font-size: .75rem;
-                display: flex;
-                justify-content: space-between;
-            }
-        }
-    }
-}
-
-.text-muted{
-    color: $textGray;
-    font-size: .9rem;
-}
-
 .header{
     padding: .25rem .5rem;
     background-color: #12161C;
     display: flex;
     align-items: center;
     justify-content: space-between;
-
  
     ul{
         list-style: none;
@@ -72,5 +32,66 @@
 
     
 }
+
+.wrapper {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    //justify-content: space-evenly;
+
+    .wrapper-chart{
+        float: left;
+        background-color: #12161C;
+        width: 50%;
+        height: 300%;
+
+        
+    }
+
+}
+
+/*::ng-deep{
+    .ngx-charts{
+        //position: absolute;
+        //top: 50%;
+        //left: 50%;
+        //right: 50%;
+        //transform: translate(-65%, -40%);
+        width: 83% !important;
+        min-height: 350px;
+    }
+
+    .ngx-charts-outer{
+        width: 16% !important;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        float: right;
+        background-color: #37393d;
+        min-height: 350px;
+    }
+
+    .ngx-charts .tooltip-anchor{
+        fill:white !important
+    }
+    .ngx-charts .gridline-path {
+        stroke: rgba(255,255,255,.05) !important;
+    }
+
+    .legend-title-text {
+        color: black;
+    }
+
+    .legend-labels {
+        background: white;
+    }
+}*/
+
+
+
+
+
+
+
+
 
 

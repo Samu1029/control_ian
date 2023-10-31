@@ -4,7 +4,6 @@ import {LiveAnnouncer} from '@angular/cdk/a11y';
 import { Sort, MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { DataSource } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-graph',
@@ -12,11 +11,12 @@ import { DataSource } from '@angular/cdk/collections';
   styleUrls: ['./graph.component.scss']
 })
 
-export class GraphComponent implements OnInit, AfterViewInit {
+export class GraphComponent implements OnInit {
 
   //Almacenar las crisis del usuario
   datos: any[] = [];
   multi: any[];
+  //view: any[] = [300, 100];
   
   displayedColumns: string[] = ['user', 'date', 'total'];
   //sortedData: { user: string, date: Date, total: number }[] = [];
@@ -25,7 +25,6 @@ export class GraphComponent implements OnInit, AfterViewInit {
    // options
    legend: boolean = true;
    legendTitle: string = 'User';
-   legendPosition: string = 'right';
    showLabels: boolean = true;
    animations: boolean = true;
    xAxis: boolean = true;
@@ -34,14 +33,9 @@ export class GraphComponent implements OnInit, AfterViewInit {
    showXAxisLabel: boolean = true;
    xAxisLabel: string = 'Resumen por día';
    yAxisLabel: string = 'Cantidad de Crisis';
-   roundDomains: boolean = true;
-   autoScale: boolean = true;
-   timeline: boolean = false;
+   timeline: boolean = true;
  
-   colorScheme = 'cool';
-   /*colorScheme = {
-     domain: ['#72efdd', '#ffd60a']
-   };*/
+  colorScheme = 'cool';
   
   tiempoGraph: { value: Number, name: Date }[] = [];
  
@@ -93,10 +87,6 @@ export class GraphComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
   /** Announce the change in sort state for assistive technology. */
   announceSortChange(sortState: Sort) {
     // This example uses English messages. If your application supports
@@ -109,35 +99,7 @@ export class GraphComponent implements OnInit, AfterViewInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-
-  /*sortData(sort: Sort) {
-    const data = this.datos.slice();
-    if (!sort.active || sort.direction === '') {
-      this.datos = data;
-      return;
-    }
-
-    this.datos  = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'user':
-          return compare(a.user, b.user, isAsc);
-        case 'date':
-          return compare(a.date, b.date, isAsc);
-        case 'total':
-          return compare(a.total, b.total, isAsc);
-        default:
-          return 0;
-      }
-    });
-    this.dataSource = new MatTableDataSource<datos[]>(this.datos);
-    this.dataSource.paginator=this.paginator;
-  }*/
 }
-
-/*function compare(a: number | Date | string, b: number | Date | string, isAsc: boolean) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}*/
 
 export interface datos {
   user: string, 
