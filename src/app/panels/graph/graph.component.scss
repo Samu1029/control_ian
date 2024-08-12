@@ -1,76 +1,37 @@
-@import 'src/styles.scss';
-
-.wrapper-main{
-    display: grid;
-    justify-content: center;
-    align-items: center;
-}
-
-.wrapper{
-    margin: auto;
-    background: $bgSecond;
-
-    .chart{
-        margin: auto;
-        background: $bgSecond;
-        width: 80%;
-    }
-}
-
-.wrapper-ul{
-    ul{
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        li{
-            padding: .175rem 0;
-        
-            .inside-list{
-                font-size: .75rem;
-                display: flex;
-                justify-content: space-between;
-            }
-        }
-    }
-}
-
-.text-muted{
-    color: $textGray;
-    font-size: .9rem;
-}
-
-.header{
-    padding: .25rem .5rem;
-    background-color: #12161C;
+.content {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-
- 
-    ul{
-        list-style: none;
-        margin: 0;
-        padding: 0;
+    overflow: auto;
+    
+    .graph {
         display: flex;
-        li{
-            cursor: pointer;
-            color: white;
-            padding: .5rem .65rem;
-            font-size: 1rem;
-            .uil{
-                font-size: 1.1rem;
-            }
-            &.logo-text{
-                color: $mainColor;
-                font-weight: 600;
-            }
-            &:hover{
-                color: $mainColor;
+        justify-content: center;
+        width: 50vw;
+        height: 80vh;
+        align-items: center;
+
+        .card {
+            display: flex;
+            width: 48vw;
+            height: 70vh;
+
+            .card-header {
+                padding-bottom: 5px;
             }
         }
+
+        .header-image {
+            background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+            background-size: cover;
+        }
+
     }
 
-    
+    .register {
+        display: flex; 
+        justify-content: center;
+        width: 50vw;
+        height: 80vh;
+        align-items: center;
+    }
 }
-
-

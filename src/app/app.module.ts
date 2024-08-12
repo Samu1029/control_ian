@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CrisisControlService } from './services/service_crisis_control/crisis-control.service'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { GraphRoutingModule } from './panels/graph/graph-routing.module';
 import { HeaderModule } from './shared/header/header.module';
 import { HttpClientModule } from '@angular/common/http';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -34,10 +36,12 @@ import { HttpClientModule } from '@angular/common/http';
     GraphRoutingModule,
     NgxChartsModule,
     HeaderModule,
-    HttpClientModule
+    HttpClientModule,
+    NgChartsModule
+    
   ],
   
-  providers: [],
+  providers: [CrisisControlService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
