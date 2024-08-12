@@ -7,11 +7,44 @@ html, body {
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+
 $bgColor: #181A20;
-// $bgColor:'white';
+$bgWhite: white;
 $mainColor: #F0B90B;
 $bgSecond: #1E2026;
 $textGray: #a9a9a9;
 $textDanger: #E2465B;
 $textWhite: white;
+
+html,body{
+    margin: 0;
+    padding: 0;
+    font-family: 'IBM Plex Sans', sans-serif;
+    background-color: #{$bgColor};
+}
+    
+h1,h2,h3,h4,h5,h6{
+    margin: 0;
+    font-weight: 400;
+}
+
+/*a{
+    text-decoration: none;
+}
+
+.text-danger{
+    color: $textDanger;
+}
+
+.text-white{
+    color: $textWhite;
+}
+
+.text-gray{
+    color: $textGray;
+}
+
+.row{
+    display: flex;
+}*/
 
